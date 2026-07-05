@@ -1,0 +1,5 @@
+operatorConfig:
+  # This makes the operator use our secrets for authentication
+  oauth:
+    clientId: ""
+    clientSecret: ""
