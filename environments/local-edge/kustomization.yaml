@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../infra/tailscale
+  - ../../infra/nats
+  - ../../apps/ingestion
+
+secretGenerator:
+  - name: ingestion-secrets
+    namespace: ingestion
+    envs:
+      - .env.secrets
+  - name: operator-oauth
+    namespace: tailscale
+    envs:
+      - .env.secrets
+
+generatorOptions:
+  disableNameSuffixHash: true
