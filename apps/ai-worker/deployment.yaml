@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ingestion
+  name: ai-worker
   namespace: personal-orchestrator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ingestion
+      app: ai-worker
   template:
     metadata:
       labels:
-        app: ingestion
+        app: ai-worker
     spec:
       containers:
-      - name: ingestion
-        image: localhost/local/ingestion:latest
+      - name: ai-worker
+        image: localhost/local/ai-worker:latest
         imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8000
         envFrom:
         - secretRef:
-            name: ingestion-secrets
+            name: ai-worker-secrets
             optional: true
         env:
         - name: NATS_URL
           value: "nats://nats.nats.svc.cluster.local:4222"
         - name: STORAGE_DIR
           value: "/data/recordings"
+        - name: TRANSCRIPTIONS_DIR
+          value: "/data/transcriptions"
         volumeMounts:
         - name: data
           mountPath: /data

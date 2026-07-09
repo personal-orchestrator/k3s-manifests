@@ -5,10 +5,15 @@ resources:
   - ../../infra/tailscale
   - ../../infra/nats
   - ../../apps/ingestion
+  - ../../apps/ai-worker
 
 secretGenerator:
   - name: ingestion-secrets
-    namespace: ingestion
+    namespace: personal-orchestrator
+    envs:
+      - .env.secrets
+  - name: ai-worker-secrets
+    namespace: personal-orchestrator
     envs:
       - .env.secrets
   - name: operator-oauth
