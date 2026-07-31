@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-worker
+  namespace: personal-orchestrator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-worker
+  template:
+    metadata:
+      labels:
+        app: ai-worker
+    spec:
+      containers:
+      - name: ai-worker
+        image: localhost/local/ai-worker:latest
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - secretRef:
+            name: ai-worker-secrets
+            optional: true
+        env:
+        - name: NATS_URL
+          value: "nats://nats.nats.svc.cluster.local:4222"
+        - name: STORAGE_DIR
+          value: "/data/recordings"
+        - name: TRANSCRIPTIONS_RAW_DIR
+          value: "/data/transcriptions-raw"
+        - name: TRANSCRIPTIONS_DIR
+          value: "/data/transcriptions"
+        - name: GROQ_RATE_LIMIT_PER_MINUTE
+          value: "10"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      volumes:
+      - name: data
+        hostPath:
+          path: /var/lib/personal-orchestrator/data
+          type: DirectoryOrCreate

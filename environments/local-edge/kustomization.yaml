@@ -5,6 +5,8 @@ resources:
   - ../../infra/tailscale
   - ../../infra/nats
   - ../../apps/ingestion
+  - ../../apps/ai-worker
+  - ../../apps/transcription-worker
 
 secretGenerator:
   - name: ingestion-secrets
