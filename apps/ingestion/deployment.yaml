@@ -21,7 +21,7 @@ spec:
         - containerPort: 8000
         resources:
           limits:
-            memory: 256Mi
+            memory: 512Mi
         envFrom:
         - secretRef:
             name: ingestion-secrets
