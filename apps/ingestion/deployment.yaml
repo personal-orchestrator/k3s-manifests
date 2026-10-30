@@ -30,7 +30,9 @@ spec:
         - name: NATS_URL
           value: "nats://nats.nats.svc.cluster.local:4222"
         - name: STORAGE_DIR
-          value: "/data"
+          value: "/data/recordings"
+        - name: USAGE_DIR
+          value: "/data/usage"
         volumeMounts:
         - name: data
           mountPath: /data
