@@ -33,6 +33,8 @@ spec:
           value: "/data/recordings"
         - name: USAGE_DIR
           value: "/data/usage"
+        - name: HEALTH_DIR
+          value: "/data/health"
         volumeMounts:
         - name: data
           mountPath: /data
