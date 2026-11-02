@@ -10,7 +10,7 @@ resources:
 
 secretGenerator:
   - name: ingestion-secrets
-    namespace: ingestion
+    namespace: personal-orchestrator
     envs:
       - .env.secrets
   - name: operator-oauth
